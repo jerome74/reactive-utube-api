@@ -13,6 +13,22 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>reactive-utube-api</name>
 	<description>reactive-utube-api project for Spring Boot</description>
+
+	<repositories>
+
+		<repository>
+			<id>project.local</id>
+			<name>project</name>
+			<url>file:${project.basedir}/repo</url>
+		</repository>
+
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+
+	</repositories>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<kotlin.version>1.5.20</kotlin.version>
