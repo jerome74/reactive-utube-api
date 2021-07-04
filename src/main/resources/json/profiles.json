@@ -1,0 +1,20 @@
+[
+  {
+    "nickname": "admin",
+    "email": "walter.longo74@gmail.com",
+    "avatarname": "admin",
+    "avatarcolor": "[0.5, 0.5, 0.5, 1]",
+    "active": 1,
+    "startdate": "2020-03-01 00:00:00.000000000",
+    "enddate": null
+  },
+  {
+    "nickname": "users",
+    "email": "walter.longo74@gmail.com",
+    "avatarname": "users",
+    "avatarcolor": "[0.5, 0.5, 0.5, 1]",
+    "active": 1,
+    "startdate": "2020-03-01 00:00:00.000000000",
+    "enddate": null
+  }
+]

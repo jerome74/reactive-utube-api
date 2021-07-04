@@ -1,0 +1,38 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: reactive-utube-api
+#--------------------------- project-------------------------------------------#
+project:
+  signin: /api-rest/signin
+  confirm: /api-rest/confirm
+  avatar: admin
+  color: '[0.5, 0.5, 0.5, 1]'
+  from: utubed.service@gmail.com
+  apidoc: /api-docs
+  swaggerui: /swagger-ui
+  loginok: login successful
+#--------------------------- main ---------------------------------------------#
+mail:
+  subject: utubed confirm email for
+  text1: Hello
+  text2: \!!,\n\n\nConfirm your email address and get started!
+  text3: \n\nWe need you to confirm your email address, by click on\n\n\n
+  text4: https://127.0.0.1:8081/api/api-rest/confirm/
+  ok: \n\ne-mail was confirm!
+#--------------------------- permission ---------------------------------------#
+permission:
+  authorities:
+    useradmin: walter.longo74@gmail.com
+    admin: '[{\"name\":\"ADMIN\",\"actions\":{\"read\":\"admin:read\",\"write\":\"admin:write\",\"delete\":\"admin:delete\"}}]'
+    user: '[{\"name\":\"USER\",\"actions\":{\"read\":\"user:read\",\"write\":\"\",\"delete\":\"\"}}]'
+    access: ADMIN,USER
+#--------------------------- authentication -----------------------------------#
+authentication:
+  authsecretid: 'JpxM4e858rc673syopdWnMFb*ExeqJtUc0HJ_iOxu~jiSYu+yPdPw93OBBjF'
+  expiretime: 86400000
+  key: auth
+#--------------------------- utubed -----------------------------------#
+utubed:
+  apiKey: AIzaSyARDAkWqWZZ4a8PPCn3SdojXqrDfwVXZ2g
