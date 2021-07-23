@@ -90,7 +90,7 @@ class ApiHandler {
             .doOnError { BadCredentialsException("Bad crendentials") }
             .flatMap {
                 ReactiveSecurityContextHolder.withAuthentication(it);
-                ServerResponse.status(HttpStatus.OK).bodyValue(ResultDTO(true, tokenProvider.createToken(it)));
+                ServerResponse.ok().header("Authentication", tokenProvider.createToken(it)).bodyValue(ResultDTO(true, "logged"));
             }
     }
 
