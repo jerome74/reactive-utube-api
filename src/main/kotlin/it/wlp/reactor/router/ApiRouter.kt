@@ -27,4 +27,9 @@ class ApiRouter {
         ("/reactive/find").invoke {req -> handler.doFind(req)}
     }
 
+    @Bean
+    fun routerDownloadFunction(handler: ApiHandler): RouterFunction<ServerResponse> = router {
+        ("/reactive/download").invoke {req -> handler.doDownload(req)}
+    }
+
 }

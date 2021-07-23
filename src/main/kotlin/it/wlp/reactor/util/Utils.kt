@@ -9,3 +9,8 @@ import reactor.core.publisher.Mono
 object UtilCrypt {
     val crypto = BCryptPasswordEncoder(12)
 }
+
+object Constants {
+    val MP3 = "mp3"
+    val MP4 = "mp4"
+}

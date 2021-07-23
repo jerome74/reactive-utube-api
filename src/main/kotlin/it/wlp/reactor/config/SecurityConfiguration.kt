@@ -78,7 +78,8 @@ class SecurityConfiguration {
             .pathMatchers(
                 "/reactive/login",
                 "/reactive/users",
-                "/reactive/find"
+                "/reactive/find",
+                "/reactive/download"
             ).permitAll()
             .anyExchange().authenticated().and().build();
 

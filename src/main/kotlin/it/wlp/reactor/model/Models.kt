@@ -12,6 +12,8 @@ data class CredentialModel(
     val username: String, val password: String
 )
 
+class VideoInfoModel(var idv: String, var type: String = "")
+
 data class FindModel(val research: String)
 
 class SearchResult(
