@@ -1,6 +1,7 @@
 package it.wlp.reactor.handler
 
 import it.wlp.reactor.dto.ResultDTO
+import it.wlp.reactor.entity.Profiles
 import it.wlp.reactor.entity.Users
 import it.wlp.reactor.exception.InputException
 import it.wlp.reactor.exception.ProcessingException
@@ -11,6 +12,7 @@ import it.wlp.reactor.model.CredentialModel
 import it.wlp.reactor.model.FindModel
 import it.wlp.reactor.model.SearchResult
 import it.wlp.reactor.model.VideoInfoModel
+import it.wlp.reactor.repository.ProfilesRepository
 import it.wlp.reactor.repository.UsersRepository
 import it.wlp.reactor.service.UTubeDService
 import it.wlp.reactor.util.Constants
@@ -37,6 +39,9 @@ class ApiHandler {
     lateinit var usersRepository: UsersRepository
 
     @Autowired
+    lateinit var profilesRepository: ProfilesRepository
+
+    @Autowired
     lateinit var repositoryReactiveAuthenticationManager: JWTReactiveAuthenticationManager
 
     @Autowired
@@ -61,6 +66,21 @@ class ApiHandler {
                     .body(it, SearchResult::class.java)
             }
     }
+
+    @Throws(ProcessingException::class)
+    fun doProfile(request: ServerRequest): Mono<ServerResponse> {
+
+        return Mono.just(request.queryParam("email"))
+            .switchIfEmpty(Mono.defer(this::raiseInputException))
+            .map {email -> profilesRepository.findByEmail(email.orElse("empty"))}
+            .onErrorResume { Mono.error { SimpleProcessException("Any Profile Found!") } }
+            .flatMap {
+                ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                    .body(it, Profiles::class.java::class.java)
+            }
+    }
+
+
 
     @Throws(ProcessingException::class)
     fun doDownload(request: ServerRequest): Mono<ServerResponse> {

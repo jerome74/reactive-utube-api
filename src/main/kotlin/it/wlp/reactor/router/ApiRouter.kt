@@ -32,4 +32,9 @@ class ApiRouter {
         ("/reactive/download").invoke {req -> handler.doDownload(req)}
     }
 
+    @Bean
+    fun routerProfileFunction(handler: ApiHandler): RouterFunction<ServerResponse> = router {
+        ("/reactive/profile").invoke {req -> handler.doProfile(req)}
+    }
+
 }

@@ -7,6 +7,7 @@ import it.wlp.reactor.dto.UsersDTO
 import it.wlp.reactor.entity.Profiles
 import it.wlp.reactor.entity.Users
 import it.wlp.reactor.exception.ProcessingException
+import it.wlp.reactor.exception.SimpleProcessException
 import it.wlp.reactor.repository.ProfilesRepository
 import it.wlp.reactor.repository.UsersRepository
 import org.slf4j.LoggerFactory
@@ -48,7 +49,8 @@ class ConfigMongo {
                 profilesResourceData.getInputStream(),
                 object : TypeReference<List<ProfilesDTO>>() {})
 
-            usersRepository.saveAll(
+
+            val users = usersRepository.saveAll(
                 Flux.fromIterable(listUser)
                     .map {
                         Users(
@@ -60,11 +62,12 @@ class ConfigMongo {
                             null
                         )
                     }
-                    .doOnError {
-                        Mono.error<ProcessingException> { ProcessingException("on saveAll Users", it) }
+                    .onErrorResume { Mono.error { SimpleProcessException("on saveAll Users") }
                     })
-                .thenMany<Flux<Profiles>> {
-                    profilesRepository.saveAll(
+
+
+
+                val profiles = profilesRepository.saveAll(
                         Flux.fromIterable(listProfile)
                         .map {
                             Profiles(
@@ -77,15 +80,12 @@ class ConfigMongo {
                                 null
                             )
                         }
-                        .doOnError {
-                            Mono.error<ProcessingException> { ProcessingException("on saveAll Profiles", it) }
+                            .onErrorResume { Mono.error { SimpleProcessException("on saveAll Profiles") }
                         })
-                }.subscribe()
 
-
-            usersRepository.findAll().subscribe { println("##### usersRepository ######## find=$it") }
-
-            profilesRepository.findAll().subscribe { println("#### profilesRepository ######### find=$it") }
+            Flux.concat(users,profiles).subscribe {
+              println("##### $it")
+            }
         }
 
 }
